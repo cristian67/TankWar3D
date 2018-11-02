@@ -61,3 +61,8 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Extras
+/Content/StarterContent/
+/Content/PhotoR_Backgrounds/
+
