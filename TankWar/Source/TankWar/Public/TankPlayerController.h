@@ -19,6 +19,19 @@ public:
 	ATank *GetControllerTank() const;
 	
 	virtual void BeginPlay() override;
-	
-	
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+	//Mover barrel, methodo para inicializar apuntar
+	void AimTowardsCrosshair();
+	//Varible, si golpea landscape
+	bool GetSightRayHitLocation(FVector &HitLocation) const;
+
+private:
+	UPROPERTY(EditAnywhere)
+		float CrosshairXLocation = 0.5f;
+	UPROPERTY(EditAnywhere)
+		float CrosshairYLocation = 0.333f;
+
+	bool GetLookDirection(FVector2D ScreenLocation, FVector &LookDirection) const;
 };
