@@ -15,10 +15,11 @@ class TANKWAR_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 	
-public:
-	virtual void BeginPlay() override;
-
 private:
+	virtual void BeginPlay() override;
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 	ATank *GetControllerTankAI() const;
 	ATank *GetPlayerTank() const;
 	

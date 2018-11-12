@@ -19,6 +19,15 @@ void ATankAIController::BeginPlay() {
 
 }
 
+// Called every frame
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (GetPlayerTank()) {
+		GetControllerTankAI()->AimAt(GetPlayerTank()->GetActorLocation());
+	}
+}
+
 //Obtiene la referencia propia (enemigoAI)
 ATank * ATankAIController::GetControllerTankAI() const {
 	return Cast<ATank>(GetPawn());

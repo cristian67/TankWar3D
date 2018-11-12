@@ -27,11 +27,16 @@ public:
 	//Varible, si golpea landscape
 	bool GetSightRayHitLocation(FVector &HitLocation) const;
 
+	
+
 private:
 	UPROPERTY(EditAnywhere)
 		float CrosshairXLocation = 0.5f;
 	UPROPERTY(EditAnywhere)
 		float CrosshairYLocation = 0.333f;
+	UPROPERTY(EditAnywhere)
+		float LineTranceRange = 1000000; //10 kilometros
 
 	bool GetLookDirection(FVector2D ScreenLocation, FVector &LookDirection) const;
+	bool GetLookVectorHit(FVector LookDirection, FVector &HitLocation) const;
 };
