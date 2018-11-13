@@ -2,6 +2,8 @@
 
 #include "TankAimingComponent.h"
 
+class UTankTurret;
+class UTankBarrel;
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -13,11 +15,19 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
+//Referencia al CAÑON
 void UTankAimingComponent::SetBarrelReference(UTankBarrel *BarrelToSet) {
 
+	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet; 
 }
 
+//Referencia a TORRETA
+void UTankAimingComponent::SetTurretReference(UTankTurret *TurretToSet) {
+
+	if (!TurretToSet) { return; }
+	Turret = TurretToSet;
+}
 
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) {
@@ -64,7 +74,8 @@ void UTankAimingComponent::MoveBarrel(FVector AimVector) {
 	auto AimAsRotator = AimVector.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotation;
 
-	Barrel->Elevate(5);
+	//Deltarotation lo mueve con el movimiento de la camara
+	Barrel->Elevate(DeltaRotator.Pitch); 
 
 }
 

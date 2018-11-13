@@ -3,13 +3,14 @@
 #pragma once
 
 
+#include "TankTurret.h"
 #include "TankBarrel.h"
 #include "TankAimingComponent.h" 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
-class UTankBarrel;
+
 
 UCLASS()
 class TANKWAR_API ATank : public APawn
@@ -24,9 +25,14 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void AimAt(FVector HitLocation);
-
+	
+	// CAÑON
 	UFUNCTION(BlueprintCallable, Category = Setup)
 		void SetBarrelReference(UTankBarrel *BarrelToSet);
+
+	//TORRETA
+	UFUNCTION(BlueprintCallable, Category = Setup)
+		void SetTurretReference(UTankTurret *TurretToSet);
 
 protected:
 	// Called when the game starts or when spawned
@@ -38,6 +44,6 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 100000; //metros por segundo
+		float LaunchSpeed = 8000; //metros por segundo
 
 };

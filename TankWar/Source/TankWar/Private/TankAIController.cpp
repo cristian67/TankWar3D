@@ -3,6 +3,7 @@
 
 #include "TankAIController.h"
 
+class Tank;
 
 void ATankAIController::BeginPlay() {
 
