@@ -2,8 +2,10 @@
 
 
 #include "TankAIController.h"
+#include "TankWar.h"
+#include "Tank.h"
 
-class Tank;
+
 
 void ATankAIController::BeginPlay() {
 
@@ -25,7 +27,14 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	if (GetPlayerTank()) {
+		
+
+		//mover hasta el player
+
+		//apuntar al jugador
 		GetControllerTankAI()->AimAt(GetPlayerTank()->GetActorLocation());
+
+		//disparo listo
 	}
 }
 
@@ -37,9 +46,7 @@ ATank * ATankAIController::GetControllerTankAI() const {
 //Obtiene la referencia del jugador
 ATank * ATankAIController::GetPlayerTank() const {
 	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-	if (!PlayerPawn){
-		return nullptr;
-	}
+	if (!PlayerPawn){return nullptr;}
 	return Cast<ATank>(PlayerPawn);
 }
 

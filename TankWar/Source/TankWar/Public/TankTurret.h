@@ -9,12 +9,19 @@
 /**
  * 
  */
-UCLASS(meta = (BlueprintSpawnableComponent))
+UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = ("collision"))
 class TANKWAR_API UTankTurret : public UStaticMeshComponent
 {
 	GENERATED_BODY()
-	
-	
-	
+
+		
+public:
+	// -1 es el maxdownward speed y +1 es maximo up movimiento
+	void Rotate(float RelativeSpeed);
+
+private:
+	UPROPERTY(EditAnywhere, Category = Setup)
+		float MaxDegreesPerSecond = 5;
+
 	
 };

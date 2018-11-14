@@ -1,7 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "TankPlayerController.h"
+#include "TankWar.h"
+#include "Engine/World.h"
+#include "Tank.h"
+
 
 class Tank;
 
@@ -28,12 +31,13 @@ void ATankPlayerController::Tick(float DeltaTime)
 	AimTowardsCrosshair();
 }
 
-
+//Inicializar Tank
 ATank * ATankPlayerController::GetControllerTank() const { 
 
 	return Cast<ATank>(GetPawn());
 }
 
+//Punteria
 void ATankPlayerController::AimTowardsCrosshair() {
 	//verificar si tiene el controlador
 	if (!GetControllerTank()) {return;}
@@ -53,7 +57,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &HitLocation) const {
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
-	//UE_LOG(LogTemp, Warning, TEXT("LOCATION Screen: %s"), *ScreenLocation.ToString());
+	
 
 	//Actualizar posicion del puntero(crosshair)
 	FVector LookDirection;
@@ -74,7 +78,8 @@ bool ATankPlayerController::GetLookVectorHit(FVector LookDirection, FVector &Hit
 			StartLocation,
 			EndLocation,
 			ECollisionChannel::ECC_Visibility)
-		){
+		)
+	{
 		HitLocation = HitResult.Location;
 		return true;
 	}
