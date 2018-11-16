@@ -11,7 +11,7 @@
  * 
  */
 //SE AGREGO:  meta = (BlueprintSpawnableComponent) para que aparezca en blueprint
-UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = ("collision"))
+UCLASS(meta = (BlueprintSpawnableComponent))//, hidecategories = ("collision"))
 class TANKWAR_API UTankBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()

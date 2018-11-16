@@ -9,6 +9,7 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+class AProjectil;
 class UTankBarrel;
 class TankAimingComponent;
 
@@ -50,4 +51,10 @@ private:
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 10000; //metros por segundo
 
+
+	UPROPERTY(EditAnywhere, Category = Setup)
+		TSubclassOf<AProjectil> Projectile_BP;   //metros por segundo
+
+	//Local barrel
+	UTankBarrel *Barrel = nullptr;
 };
