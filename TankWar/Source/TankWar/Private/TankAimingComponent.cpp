@@ -59,12 +59,12 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrel(AimDirection);
 		auto Time = GetWorld()->GetTimeSeconds();
-	}
+	}/*
 	else {
 		auto Time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f: No encontro punteria, bug"), Time);
 	}
-	
+	*/
 }
 
 void UTankAimingComponent::MoveBarrel(FVector AimDirection) {

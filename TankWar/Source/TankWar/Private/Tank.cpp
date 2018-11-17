@@ -58,17 +58,28 @@ void ATank::AimAt(FVector HitLocation) {
 
 //REFERENCIA A LA TORRETA 
 void ATank::Fire() {
+
+	//Reload
+	bool isReload = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds;
+		
 	auto Time = GetWorld()->GetTimeSeconds();
 	UE_LOG(LogTemp, Warning, TEXT("%f: tank fires "), Time);
-	if (!Barrel) { return; }
-	//Spawnear Projectil
-	auto Projectile = GetWorld()->SpawnActor<AProjectil>(
+
+
+	if (Barrel && isReload) {
+
+		//Spawnear Projectil
+		auto Projectile = GetWorld()->SpawnActor<AProjectil>(
 			Projectile_BP,
 			Barrel->GetSocketLocation(FName("Projectil")),
 			Barrel->GetSocketRotation(FName("Projectil"))
-		);
+			);
 
-	Projectile->LanzarProjectil(LaunchSpeed);
+		//Velocidad del projectil lanzado
+		Projectile->LanzarProjectil(LaunchSpeed);
+		//Re-ajustar el time para la recarga
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }
 
 

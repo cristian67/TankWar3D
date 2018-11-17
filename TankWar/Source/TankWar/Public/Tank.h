@@ -57,4 +57,10 @@ private:
 
 	//Local barrel
 	UTankBarrel *Barrel = nullptr;
+
+	//Recargar disparo
+	float ReloadTimeSeconds = 5.0;
+
+	//Para la condicion
+	double LastFireTime = 0;
 };

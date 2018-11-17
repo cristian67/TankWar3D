@@ -21,7 +21,6 @@ private:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	ATank *GetControllerTankAI() const;
-	ATank *GetPlayerTank() const;
+	
 	
 };
