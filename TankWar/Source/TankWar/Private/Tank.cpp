@@ -17,7 +17,7 @@ ATank::ATank()
 
 	// No es necesario proteger punteros que se agregan al contructor. 
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
-	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
+	//TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
 
 }
  
@@ -79,6 +79,7 @@ void ATank::Fire() {
 
 		//Velocidad del projectil lanzado
 		Projectile->LanzarProjectil(LaunchSpeed);
+
 		//Re-ajustar el time para la recarga
 		LastFireTime = FPlatformTime::Seconds();
 	}
