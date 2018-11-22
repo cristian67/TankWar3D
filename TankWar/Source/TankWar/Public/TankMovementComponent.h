@@ -30,6 +30,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Input)
 		void IntendTurnRight(float Throw);
 
+	//llamar funcion directMOVE
+	virtual void RequestDirectMove(const FVector &MoveVelocity, bool bForceMaxSpeed) override;
+
 
 
 private:

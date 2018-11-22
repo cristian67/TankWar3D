@@ -24,6 +24,19 @@ void UTankMovementComponent::IntendMoveForward(float Throw) {
 	//Fix Velocidad
 }
 
+ void UTankMovementComponent::RequestDirectMove(const FVector &MoveVelocity, bool bForceMaxSpeed) {
+
+	 auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	 auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+	 //la magia pa q se mueva usando coseno con funcion dotproduct
+	 auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
+	 IntendMoveForward(ForwardThrow);
+
+	 //uso del seno para rotar
+	 auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;	
+	 IntendTurnRight(RightThrow);
+}
+
 void UTankMovementComponent::IntendTurnRight(float Throw) {
 	
 	//Validacion
