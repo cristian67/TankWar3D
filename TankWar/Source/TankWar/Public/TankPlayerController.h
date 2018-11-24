@@ -11,16 +11,20 @@
 class ATank;
 
 /**
- * 
+ *	
  */
 UCLASS()
 class TANKWAR_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-private:
-	ATank *GetControllerTank() const;
 
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		ATank *GetControllerTank() const;
+
+private:
+	
 	virtual void BeginPlay() override;
 
 	// Called every frame

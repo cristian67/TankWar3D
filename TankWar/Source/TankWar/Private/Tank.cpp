@@ -65,7 +65,7 @@ void ATank::Fire() {
 	bool isReload = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds;
 		
 	auto Time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("%f: tank fires "), Time);
+	//UE_LOG(LogTemp, Warning, TEXT("%f: tank fires "), Time);
 
 
 	if (Barrel && isReload) {
