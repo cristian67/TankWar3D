@@ -6,7 +6,6 @@
 #include "Projectil.h"
 #include "TankBarrel.h"
 #include "TankAimingComponent.h" 
-#include "TankMovementComponent.h"
 
 
 // Sets default values
@@ -22,37 +21,22 @@ ATank::ATank()
 }
  
 
-//REFERENCIA AL CAÑON
-void ATank::SetBarrelReference(UTankBarrel *BarrelToSet) {
-	
-	TankAimingComponent->SetBarrelReference(BarrelToSet);
-	Barrel = BarrelToSet;
-}
-
-//REFERENCIA A LA TORRETA 
-void ATank::SetTurretReference(UTankTurret *TurretToSet) {
-
-	TankAimingComponent->SetTurretReference(TurretToSet);
-}
-
-
 
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
 	Super::BeginPlay(); 
-}
 
-
-// Called to bind functionality to input
-void ATank::SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 
 }
+
+
 
 void ATank::AimAt(FVector HitLocation) {
 	
+	if (!TankAimingComponent) { return; }
+
 	//LLAMAR A AIMCOMPONENT
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 	

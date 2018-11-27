@@ -16,7 +16,7 @@ class TANKWAR_API UTankTrack : public UStaticMeshComponent
 
 public:
 	//moviemiento en +1 y -1
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void SetThrottle(float Throttle);
 	
 	//fuerza de movimiento,  segun el principio de NEWTON ; fuerza = masa * aceleracion

@@ -4,6 +4,7 @@
 #include "TankWar.h"
 #include "Engine/World.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 
 
 class Tank;
@@ -11,17 +12,10 @@ class Tank;
 void ATankPlayerController::BeginPlay() {
 
 	Super::BeginPlay();
-
-
-	auto ControlledTank = GetControllerTank();
-	if (!ControlledTank) {
-
-		UE_LOG(LogTemp, Warning, TEXT("No se cuenta con el objeto tank, adjunte un objeto tanque"));
-	} 
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("playerControllerTank ready to play, tiene el objeto: %s "), *(ControlledTank->GetName() ));
+	auto AimingComponent = GetControllerTank()->FindComponentByClass<UTankAimingComponent>();
+	if ( AimingComponent) {
+		FoundAimingComponent(AimingComponent);
 	}
-
 }
 
 // Called every frame
@@ -40,7 +34,7 @@ ATank * ATankPlayerController::GetControllerTank() const {
 //Punteria
 void ATankPlayerController::AimTowardsCrosshair() {
 	//verificar si tiene el controlador
-	if (!GetControllerTank()) {return;}
+	if (!ensure(GetControllerTank())) {return;}
 
 	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation)) {

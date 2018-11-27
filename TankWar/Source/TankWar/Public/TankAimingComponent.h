@@ -28,16 +28,15 @@ class TANKWAR_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this component's properties
-	UTankAimingComponent();
+	
+
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		void Initialise(UTankBarrel *BarrelToSet, UTankTurret *TurretToSet);
+
 
 	//ApuntarHacia
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 
-	//Llamar referencia del CAÑON
-	void SetBarrelReference(UTankBarrel *BarrelToSet);
-	//Llamar referencia de la TORRETA
-	void SetTurretReference(UTankTurret *TurretToSet);
 
 protected:
 	//Color Aim
@@ -46,7 +45,8 @@ protected:
 
 
 private:
-
+	// Sets default values for this component's properties
+	UTankAimingComponent();
 	//CAÑON
 	UTankBarrel *Barrel = nullptr;
 	//TORRETA

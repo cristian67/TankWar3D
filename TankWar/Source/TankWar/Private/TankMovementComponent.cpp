@@ -12,17 +12,7 @@ void UTankMovementComponent::Initialise(UTankTrack *LeftTrackToSet, UTankTrack *
 	RightTrack = RightTrackToSet;
 }
 
-void UTankMovementComponent::IntendMoveForward(float Throw) {
 
-	//Validacion
-	if (!LeftTrack || !RightTrack) { return; }
-
-	//LLamar metodo de TanTrack
-	LeftTrack->SetThrottle(Throw);
-	RightTrack->SetThrottle(Throw);
-
-	//Fix Velocidad
-}
 
  void UTankMovementComponent::RequestDirectMove(const FVector &MoveVelocity, bool bForceMaxSpeed) {
 
@@ -37,10 +27,24 @@ void UTankMovementComponent::IntendMoveForward(float Throw) {
 	 IntendTurnRight(RightThrow);
 }
 
+
+ void UTankMovementComponent::IntendMoveForward(float Throw) {
+
+	 //Validacion
+	 if (!ensure(LeftTrack || RightTrack)) { return; }
+
+	 //LLamar metodo de TanTrack
+	 LeftTrack->SetThrottle(Throw);
+	 RightTrack->SetThrottle(Throw);
+
+	 //Fix Velocidad
+ }
+
+
 void UTankMovementComponent::IntendTurnRight(float Throw) {
 	
 	//Validacion
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack || RightTrack)) { return; }
 	//LLamar metodo de TanTrack
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);

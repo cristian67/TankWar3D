@@ -14,7 +14,6 @@
 class AProjectil;
 class UTankBarrel;
 class TankAimingComponent;
-class UTankMovementComponent;
 
 
 
@@ -25,27 +24,16 @@ class TANKWAR_API ATank : public APawn
 
 public:
 	
-	// CAÑON
-	UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetBarrelReference(UTankBarrel *BarrelToSet);
-
-	//TORRETA
-	UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetTurretReference(UTankTurret *TurretToSet);
-
 	void AimAt(FVector HitLocation);
 
 	//Disparar
-	UFUNCTION(BlueprintCallable, Category = Firing)
+	UFUNCTION(BlueprintCallable, Category = "Firing")
 		void Fire();
 
 protected:
 	//Componente Aiming
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent *TankAimingComponent = nullptr; 
-
-	UPROPERTY(BlueprintReadOnly) 
-	UTankMovementComponent *TankMovementComponent = nullptr;
 
 
 
@@ -55,14 +43,12 @@ private:
 	ATank();
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(EditAnywhere, Category = Firing)
+	UPROPERTY(EditAnywhere, Category = "Firing")
 		float LaunchSpeed = 10000; //metros por segundo
 
 
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditAnywhere, Category = "	Setup")
 		TSubclassOf<AProjectil> Projectile_BP;   //metros por segundo
 
 	//Local barrel
