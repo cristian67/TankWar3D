@@ -3,8 +3,8 @@
 
 #include "TankAIController.h"
 #include "TankWar.h"
-#include "Tank.h"
 #include "Engine/World.h"
+#include "TankAimingComponent.h"
 
 
 
@@ -19,22 +19,24 @@ void ATankAIController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	
 	//Castear player a tipo de objeto Tank
-	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 	
 	//Obtiene la referencia propia (enemigoAI)
-	auto ControlledTank = Cast<ATank>(GetPawn());
+	auto ControlledTank = GetPawn() ;
 
-	if (PlayerTank) {
-		
-		//mover hasta el player
-		MoveToActor(PlayerTank, AcceptRadius);
+	if (!ensure(PlayerTank && ControlledTank)) { return; } 
+	
+	//mover hasta el player
+	MoveToActor(PlayerTank, AcceptRadius);
 
-		//apuntar al jugador
-		ControlledTank->AimAt(PlayerTank->GetActorLocation());
+	auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
 
-		//disparo listo
-		ControlledTank->Fire();
-	}
+	//apuntar al jugador
+	AimingComponent->AimAt(PlayerTank->GetActorLocation());
+
+	//disparo listo
+	AimingComponent->Fire();
+	
 }
 
 

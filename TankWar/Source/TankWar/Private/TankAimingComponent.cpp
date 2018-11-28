@@ -3,11 +3,10 @@
 #include "TankAimingComponent.h"
 #include "TankWar.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 #include "TankTurret.h"
 #include "TankBarrel.h"
-
-
-
+#include "Projectil.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -20,16 +19,34 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
+
+// Called every frame
+void UTankAimingComponent::BeginPlay()
+{
+	LastFireTime = FPlatformTime::Seconds();
+
+}
+
+
+void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) {
+
+	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds) 
+	{
+		FiringState = EFiringState::Reloading; 
+	}
+}
+
+
+
+//INICIALIZAR PUNTEROS
 void UTankAimingComponent::Initialise(UTankBarrel *BarrelToSet, UTankTurret *TurretToSet) {
 
 	Barrel = BarrelToSet;
 	Turret = TurretToSet;
 }
 
-
-
-
-void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) {
+//FUNCION APUNTAR
+void UTankAimingComponent::AimAt(FVector HitLocation) {
 
 
 	if (!Barrel) { return; }
@@ -61,6 +78,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) {
 	*/
 }
 
+//FUNCION MOVER CAÑON
 void UTankAimingComponent::MoveBarrel(FVector AimDirection) {
 
 	if (!Barrel) { return; }
@@ -73,5 +91,29 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection) {
 	//Deltarotation lo mueve con el movimiento de la camara
 	Barrel->Elevate(DeltaRotator.Pitch);
 	Turret->Rotate(DeltaRotator.Yaw);
+}
+
+
+//FUNCION DISPARAR
+void UTankAimingComponent::Fire() {
+	
+	if (FiringState != EFiringState::Reloading) {
+
+		if (!ensure(Barrel)) { return; }
+		if (!ensure(Projectile_BP)) { return; }
+		
+		//Spawnear Projectil
+		auto Projectile = GetWorld()->SpawnActor<AProjectil>(
+			Projectile_BP,
+			Barrel->GetSocketLocation(FName("Projectil")),
+			Barrel->GetSocketRotation(FName("Projectil"))
+			);
+
+		//Velocidad del projectil lanzado
+		Projectile->LanzarProjectil(LaunchSpeed);
+
+		//Re-ajustar el time par a la recarga
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }
 

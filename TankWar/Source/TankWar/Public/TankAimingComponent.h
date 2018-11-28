@@ -20,6 +20,7 @@ enum class EFiringState : uint8
 //Clases
 class UTankBarrel;
 class UTankTurret;
+class AProjectil;
 
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -28,31 +29,54 @@ class TANKWAR_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void Initialise(UTankBarrel *BarrelToSet, UTankTurret *TurretToSet);
 
-
 	//ApuntarHacia
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
 
+	//Categoria Funcion: Disparar (TANK)
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+		void Fire();
 
 protected:
-	//Color Aim
-	UPROPERTY(BlueprintReadOnly, Category = "State")
-		EFiringState FiringState = EFiringState::Aiming;
+	//Categoria: Color Aim
+	UPROPERTY(BlueprintReadOnly, Category = "St  ate")
+		EFiringState FiringState = EFiringState::Reloading;
 
 
 private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
+
+
+	virtual void BeginPlay() override;
+
+	//CADA FRAME Reload
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+	
 	//CAÑON
 	UTankBarrel *Barrel = nullptr;
 	//TORRETA
 	UTankTurret *Turret = nullptr;
-
-	//ROTAR BARREL 
+	//Recargar disparo
+	float ReloadTimeSeconds = 5.0;
+	//Para la condicion
+	double LastFireTime = 0;
+	
+	
+	//Funcion: ROTAR BARREL 
 	void MoveBarrel(FVector AimDirection);
+
+	//Categorias: 
+	UPROPERTY(EditAnywhere, Category = "Firing")
+		float LaunchSpeed = 10000; //metros por segundo
+	
+	UPROPERTY(EditAnywhere, Category = "Setup")
+		TSubclassOf<AProjectil> Projectile_BP;   //metros por segundo
+
+
 
 };

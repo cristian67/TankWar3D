@@ -3,7 +3,6 @@
 #include "TankPlayerController.h"
 #include "TankWar.h"
 #include "Engine/World.h"
-#include "Tank.h"
 #include "TankAimingComponent.h"
 
 
@@ -12,10 +11,9 @@ class Tank;
 void ATankPlayerController::BeginPlay() {
 
 	Super::BeginPlay();
-	auto AimingComponent = GetControllerTank()->FindComponentByClass<UTankAimingComponent>();
-	if ( AimingComponent) {
-		FoundAimingComponent(AimingComponent);
-	}
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
+	FoundAimingComponent(AimingComponent);
 }
 
 // Called every frame
@@ -25,21 +23,16 @@ void ATankPlayerController::Tick(float DeltaTime)
 	AimTowardsCrosshair();
 }
 
-//Inicializar Tank
-ATank * ATankPlayerController::GetControllerTank() const { 
-
-	return Cast<ATank>(GetPawn());
-}
 
 //Punteria
 void ATankPlayerController::AimTowardsCrosshair() {
-	//verificar si tiene el controlador
-	if (!ensure(GetControllerTank())) {return;}
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
 
 	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation)) {
 		//llamar clase tank metodo AimAT
-		GetControllerTank()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 	}
 	 
 }
