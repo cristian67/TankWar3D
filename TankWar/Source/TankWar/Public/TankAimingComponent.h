@@ -41,8 +41,7 @@ public:
 		void Fire();
 
 protected:
-	//Categoria: Color Aim
-	UPROPERTY(BlueprintReadOnly, Category = "St  ate")
+	UPROPERTY(BlueprintReadOnly, Category = "State")
 		EFiringState FiringState = EFiringState::Reloading;
 
 
@@ -61,22 +60,26 @@ private:
 	UTankBarrel *Barrel = nullptr;
 	//TORRETA
 	UTankTurret *Turret = nullptr;
-	//Recargar disparo
-	float ReloadTimeSeconds = 5.0;
 	//Para la condicion
 	double LastFireTime = 0;
 	
+
+	bool IsBarrelMoving();
 	
 	//Funcion: ROTAR BARREL 
 	void MoveBarrel(FVector AimDirection);
 
 	//Categorias: 
-	UPROPERTY(EditAnywhere, Category = "Firing")
-		float LaunchSpeed = 10000; //metros por segundo
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float LaunchSpeed = 4000;
 	
-	UPROPERTY(EditAnywhere, Category = "Setup")
-		TSubclassOf<AProjectil> Projectile_BP;   //metros por segundo
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		TSubclassOf<AProjectil> ProjectileBlueprint;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float ReloadTimeInSeconds = 3;
+
+	FVector AimDirection;
 
 
 };

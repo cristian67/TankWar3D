@@ -37,7 +37,6 @@ void UTankMovementComponent::Initialise(UTankTrack *LeftTrackToSet, UTankTrack *
 	 LeftTrack->SetThrottle(Throw);
 	 RightTrack->SetThrottle(Throw);
 
-	 //Fix Velocidad
  }
 
 
@@ -49,5 +48,4 @@ void UTankMovementComponent::IntendTurnRight(float Throw) {
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 
-	//Fix Velocidad
 }

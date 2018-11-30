@@ -17,12 +17,24 @@ class TANKWAR_API UTankTrack : public UStaticMeshComponent
 public:
 	//moviemiento en +1 y -1
 	UFUNCTION(BlueprintCallable, Category = "Input")
-	void SetThrottle(float Throttle);
-	
+		void SetThrottle(float Throttle);
+
 	//fuerza de movimiento,  segun el principio de NEWTON ; fuerza = masa * aceleracion
 	UPROPERTY(EditDefaultsOnly)
 		float TrackMaxDrivingForce = 400000;
-	
-	
-	
+
+private:
+	UTankTrack();
+
+	virtual void BeginPlay() override;
+
+	void ApplySidewaysForce();
+
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	void DriveTrack();
+
+	float CurrentThrottle = 0;
+
 };
