@@ -30,7 +30,8 @@ void ATankPlayerController::AimTowardsCrosshair() {
 	if (!ensure(AimingComponent)) { return; }
 
 	FVector HitLocation;
-	if (GetSightRayHitLocation(HitLocation)) {
+	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
+	if (bGotHitLocation) {
 		//llamar clase tank metodo AimAT
 		AimingComponent->AimAt(HitLocation);
 	}
