@@ -7,6 +7,8 @@
 #include "GameFramework/Actor.h"
 #include "Projectil.generated.h"
 
+class UParticleSystemComponent;
+
 UCLASS()
 class TANKWAR_API AProjectil : public AActor
 {
@@ -24,8 +26,17 @@ public:
 	//Disparar
 	void LanzarProjectil(float Speed);
 
-
 private:
 	UProjectileMovementComponent *ProjectileMovement = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UStaticMeshComponent* CollisionMesh = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UParticleSystemComponent* LaunchBlast = nullptr;
 	 
+		
+
+
+
 };
