@@ -5,6 +5,7 @@
 #include "Particles/ParticleSystem.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "PhysicsEngine/RadialForceComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 
 
@@ -70,4 +71,35 @@ void AProjectil::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UP
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
 	ExplosionForce->FireImpulse();
+
+
+	//Dejar invisible el objecto
+	SetRootComponent(ImpactBlast);
+	CollisionMesh->DestroyComponent();
+
+
+	//Quitar Vida
+	UGameplayStatics::ApplyRadialDamage(
+
+		this,
+		ProyectileDamage,
+		GetActorLocation(),
+		ExplosionForce->Radius,
+		UDamageType::StaticClass(),
+		TArray<AActor*>() //Daño a todos los actores en el radio de explosion 
+
+
+	);
+
+
+	//Destruir objecto
+	FTimerHandle Timer;
+	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AProjectil::OnTimerExpire, DestroyDelay, false);
+	
+}
+
+void AProjectil::OnTimerExpire(){
+	
+	Destroy();
+
 }

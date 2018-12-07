@@ -18,12 +18,22 @@ class TANKWAR_API ATank : public APawn
 
 public:
 
-
-
+	virtual float TakeDamage
+	(
+		float DamageAmount,
+		struct FDamageEvent const & DamageEvent,
+		class AController * EventInstigator,
+		AActor * DamageCauser
+	);
 
 
 private:
 	// Sets default values for this pawn's properties
 	ATank();
 
+	UPROPERTY(EditDefaultsOnly,Category="Setup")
+	int32 StartingHealth = 100;
+
+	UPROPERTY(VisibleAnywhere, Category = "Health")
+	int32 CurrentHealth = StartingHealth;
 };
