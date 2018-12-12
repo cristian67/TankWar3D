@@ -27,6 +27,8 @@ protected:
 private:
 	
 	virtual void BeginPlay() override;
+	virtual void SetPawn(APawn * InPaw) override;
+
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -41,6 +43,10 @@ private:
 		float CrosshairYLocation = 0.3333;
 	UPROPERTY(EditAnywhere)
 		float LineTranceRange = 1000000000; 
+
+	UFUNCTION()
+		void OnPossedTankDeath();
+
 
 	bool GetLookDirection(FVector2D ScreenLocation, FVector &LookDirection) const;
 	bool GetLookVectorHit(FVector LookDirection, FVector &HitLocation) const;

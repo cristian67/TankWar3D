@@ -5,6 +5,7 @@
 #include "TankWar.h"
 #include "Engine/World.h"
 #include "TankAimingComponent.h"
+#include "Tank.h"
 
 
 
@@ -12,6 +13,29 @@ void ATankAIController::BeginPlay() {
 
 	Super::BeginPlay();
 }
+
+void ATankAIController::SetPawn(APawn * InPawn) {
+
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PosesionTank = Cast<ATank>(InPawn);
+		
+		if (!ensure(PosesionTank)) { return;	}
+
+		//subscribir el metodo local del tanque (dead event)
+		PosesionTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnPossedTankDeath);
+	}
+}
+ 
+void ATankAIController::OnPossedTankDeath() {
+
+	if (!GetPawn()) { return; }
+
+	GetPawn()->DetachFromControllerPendingDestroy(); 
+
+}
+
 
 // Called every frame
 void ATankAIController::Tick(float DeltaTime)

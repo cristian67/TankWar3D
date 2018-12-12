@@ -19,11 +19,15 @@ class TANKWAR_API ATankAIController : public AAIController
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup" )
 		float AcceptRadius = 10000;
+
 private:
 	virtual void BeginPlay() override;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
+	virtual void SetPawn(APawn * InPaw) override;
+
+	UFUNCTION()
+		void OnPossedTankDeath();
 	
 };
