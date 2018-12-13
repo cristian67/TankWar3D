@@ -73,7 +73,7 @@ private:
 	bool IsBarrelMoving();
 	
 	//Funcion: ROTAR BARREL 
-	void MoveBarrel(FVector AimDirection);
+	void MoveBarrel(FVector TargetAimDirection);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectil> ProjectileBlueprint;

@@ -13,7 +13,6 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
@@ -23,6 +22,7 @@ UTankAimingComponent::UTankAimingComponent()
 // Called every frame
 void UTankAimingComponent::BeginPlay()
 {
+	Super::BeginPlay();
 	LastFireTime = FPlatformTime::Seconds();
 
 }
@@ -93,13 +93,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation) {
 }
 
 //FUNCION MOVER CAÑON
-void UTankAimingComponent::MoveBarrel(FVector AimDirection) {
+void UTankAimingComponent::MoveBarrel(FVector TargetAimDirection) {
 
 	if (!Barrel) { return; }
 	if (!Turret) { return; }
 
 	auto BarrelRotation = Barrel->GetForwardVector().Rotation();
-	auto AimAsRotator = AimDirection.Rotation();
+	auto AimAsRotator = TargetAimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotation;
 
 	//DeltaRotator lo mueve con el movimiento de la camara
