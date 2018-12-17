@@ -48,7 +48,7 @@ void ATankAIController::Tick(float DeltaTime)
 	//Obtiene la referencia propia (enemigoAI)
 	auto ControlledTank = GetPawn() ;
 
-	if (!ensure(PlayerTank && ControlledTank)) { return; } 
+	if (!(PlayerTank && ControlledTank)) { return; } 
 	
 	//mover hasta el player
 	MoveToActor(PlayerTank, AcceptRadius);
