@@ -7,6 +7,7 @@
 #include "SprungWheel.generated.h"
 
 class UPhysicsConstraintComponent;
+class USphereComponent;
 
 UCLASS()
 class TANKWAR_API ASprungWheel : public AActor
@@ -26,13 +27,19 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UStaticMeshComponent *Mass = nullptr;
+
+	void SetConstraint();
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UStaticMeshComponent *Wheel = nullptr;
+		USphereComponent *Wheel = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		USphereComponent *Axle = nullptr;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UPhysicsConstraintComponent  *MassWheelConstraint = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UPhysicsConstraintComponent  *AxleWheelConstraint = nullptr;
 	
 };
