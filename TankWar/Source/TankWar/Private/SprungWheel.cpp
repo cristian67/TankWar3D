@@ -57,3 +57,9 @@ void ASprungWheel::Tick(float DeltaTime)
 
 }
 
+//FUERZA PARA EL MOVIEMIENTO DEL TANK
+void ASprungWheel::AddDrivingForce(float ForceMagnitude) {
+	Wheel->AddForce(Axle->GetForwardVector() * ForceMagnitude);
+}
+
+
